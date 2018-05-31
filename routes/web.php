@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('admin/category','Admin\\CategoryController@index');
+Route::get('admin/category/add','Admin\\CategoryController@create');
+Route::post('admin/category/add','Admin\\CategoryController@create');
