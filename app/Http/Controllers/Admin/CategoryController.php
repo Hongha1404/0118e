@@ -39,6 +39,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ], [
+            'name.required' => 'Tên không được để trống',
+        ]);
         $c = new Category();
         $c->name = $request->name;
         $c->parent_id = 0;
@@ -66,7 +71,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.category.edit',['category'=>$category]);
     }
 
     /**
@@ -78,7 +84,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ], [
+            'name.required' => 'Tên không được để trống',
+        ]);
+        $category = Category::findOrFail($id);
+        $category->name = $request->name;
+        $category->save();
+        Session::flash('success', 'Updated "'.$category->name.'" category');
+        return redirect('admin/category');
     }
 
     /**
@@ -89,6 +104,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        Session::flash('success', 'Deleted "'.$category->name.'" category');
+        return redirect('admin/category');
     }
 }

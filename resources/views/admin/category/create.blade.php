@@ -1,6 +1,7 @@
 <h1>Create new item</h1>
-<form action="" method="POST">
-    @csrf
-    Name: <input type="text" name="name">
-    <input type="submit">
-</form>
+{{ Form::open(array('method' => 'POST', 'url' => 'admin/category/add', 'id' => 'frmCreateCategory')) }}
+<p><label>Name:</label>
+    {{ Form::text('name', null, ['id' => 'txtName', 'class' => 'form-control']) }}</p>
+    {!! $errors->first('name', '<p style="color:red;">:message</p>') !!}
+    <p>{{ Form::submit('Save' )}}</p>
+{{ Form::close() }}

@@ -19,5 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('admin/category','Admin\\CategoryController@index');
+//them
 Route::get('admin/category/add','Admin\\CategoryController@create');
-Route::post('admin/category/add','Admin\\CategoryController@create');
+Route::post('admin/category/add','Admin\\CategoryController@store');
+//sua
+Route::get('admin/category/{id}/edit','Admin\\CategoryController@edit');
+//update
+Route::post('admin/category/{id}', 'Admin\CategoryController@update');
+//xoa
+Route::post('admin/category/{id}/destroy', 'Admin\CategoryController@destroy');
